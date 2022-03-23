@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-dns
+  labels:
+    app: dns-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dns-app
+  template:
+    metadata:
+      labels:
+        app: dns-app
+    spec:
+      containers:
+      - name: as
+        image: jimeishen/as
+        ports:
+        - containerPort: 30001
+
+      - name: fs
+        image: jimeishen/fs
+        ports:
+        - containerPort: 30002
+
+      - name: us
+        image: jimeishen/us
+        ports:
+        - containerPort: 30003
